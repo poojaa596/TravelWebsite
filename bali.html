@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bali, Indonesia | Explore the World</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 0;
+            text-align: center;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        .navbar a:hover {
+            color: #1abc9c;
+        }
+        .destination-hero {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .destination-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .destination-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .destination-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        .destination-text h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .destination-text p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .destination-highlights {
+            flex: 1;
+            min-width: 300px;
+        }
+        .destination-highlights h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .highlight-icon {
+            font-size: 24px;
+            color: #1abc9c;
+            margin-right: 15px;
+        }
+        .highlight-text h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .highlight-text p {
+            font-size: 14px;
+            color: #777;
+            margin: 0;
+        }
+        .map-container {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .itinerary {
+            margin-bottom: 40px;
+        }
+        .itinerary h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: #1abc9c;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid #1abc9c;
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        .left {
+            left: 0;
+        }
+        .right {
+            left: 50%;
+        }
+        .left::after {
+            right: -10px;
+        }
+        .right::after {
+            left: -10px;
+        }
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .timeline-content h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #1abc9c;
+        }
+        .timeline-content p {
+            font-size: 14px;
+            color: #555;
+        }
+        .price-section {
+            background-color: #f4f4f4;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+        .price-section h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .price-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .price-card h4 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .price-card .price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1abc9c;
+            margin-bottom: 15px;
+        }
+        .price-card ul {
+            list-style-type: none;
+            margin-bottom: 15px;
+        }
+        .price-card ul li {
+            padding: 5px 0;
+            color: #555;
+        }
+        .price-card ul li::before {
+            content: "✓";
+            color: #1abc9c;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .price-card .btn {
+            display: inline-block;
+            background: #1abc9c;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .price-card .btn:hover {
+            background: #16a085;
+            transform: scale(1.05);
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            color: #1abc9c;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .back-btn:hover {
+            color: #16a085;
+            transform: translateX(-5px);
+        }
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 30px;
+            text-align: left;
+        }
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #1abc9c;
+        }
+        .footer-col p, .footer-col a {
+            color: #ecf0f1;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .footer-col a:hover {
+            color: #1abc9c;
+            transform: translateX(5px);
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .social-links a {
+            color: white;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+        .social-links a:hover {
+            color: #1abc9c;
+            transform: translateY(-5px);
+        }
+        .copyright {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #34495e;
+            width: 100%;
+        }
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-item::after {
+                left: 21px;
+            }
+            .left::after, .right::after {
+                left: 21px;
+            }
+            .right {
+                left: 0%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Navigation -->
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#destinations">Destinations</a>
+        <a href="index.html#gallery">Gallery</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+    </div>
+
+    <!-- Bali Destination Page -->
+    <div class="destination-hero" style="background-image: url('https://images.unsplash.com/photo-1518544866330-95a2bfb6b2e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')">
+        <div class="content">
+            <h1>Bali, Indonesia</h1>
+            <p>Island of the Gods</p>
+        </div>
+    </div>
+    
+    <div class="destination-content">
+        <a href="index.html" class="back-btn">&larr; Back to Destinations</a>
+        
+        <div class="destination-info">
+            <div class="destination-text">
+                <h2>Discover Bali</h2>
+                <p>Bali is an Indonesian island known for its forested volcanic mountains, iconic rice paddies, beaches and coral reefs. The island is home to religious sites such as cliffside Uluwatu Temple. To the south, the beachside city of Kuta has lively bars, while Seminyak, Sanur and Nusa Dua are popular resort towns. The island is also known for its yoga and meditation retreats.</p>
+                <p>Bali's culture is deeply spiritual and unique. The Balinese people are proud of having preserved their unique Hindu culture against the advance of Islam, the dominant religion throughout Indonesia. This is still reflected in day-to-day life and can be seen in the numerous ceremonies, Balinese temples, and offerings found all over the island. The rich culture, spectacular nature, and friendly people make Bali one of the most attractive travel destinations in the world.</p>
+            </div>
+            
+            <div class="destination-highlights">
+                <h3>Highlights</h3>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-umbrella-beach"></i></div>
+                    <div class="highlight-text">
+                        <h4>Uluwatu Beach</h4>
+                        <p>Famous surf spot with dramatic cliffs</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-temple"></i></div>
+                    <div class="highlight-text">
+                        <h4>Tanah Lot</h4>
+                        <p>Picturesque sea temple on a rock formation</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-water"></i></div>
+                    <div class="highlight-text">
+                        <h4>Tegallalang Rice Terraces</h4>
+                        <p>Stunning emerald-green rice paddies</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-spa"></i></div>
+                    <div class="highlight-text">
+                        <h4>Ubud</h4>
+                        <p>Cultural heart of Bali with yoga retreats</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126646.2573897315!2d115.14748504335937!3d-8.455371699999988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd22f7520fca7d3%3A0x2872b62cc456cd84!2sBali%2C%20Indonesia!5e0!3m2!1sen!2sus!4v1623251534567!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        
+        <div class="itinerary">
+            <h3>Suggested 7-Day Itinerary</h3>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>Day 1: Arrival & Seminyak</h4>
+                        <p>Arrive in Bali, transfer to Seminyak. Evening exploring beach clubs and restaurants.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4>Day 2: Uluwatu & Jimbaran</h4>
+                        <p>Morning at Uluwatu Temple and beach. Sunset seafood dinner in Jimbaran Bay.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>Day 3: Ubud Cultural Day</h4>
+                        <p>Visit Sacred Monkey Forest, Ubud Palace, and traditional art markets. Balinese dance performance.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4>Day 4: Tegallalang & Kintamani</h4>
+                        <p>Morning at Tegallalang Rice Terraces. Afternoon views of Mount Batur volcano and lake.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>Day 5: Nusa Penida Day Trip</h4>
+                        <p>Full day excursion to Nusa Penida island with stunning beaches and cliffs.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4>Day 6: Tanah Lot & Spa Day</h4>
+                        <p>Morning visit to Tanah Lot temple. Afternoon Balinese spa treatment.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>Day 7: Departure</h4>
+                        <p>Last minute shopping or beach time before departure.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="price-section">
+            <h3>Package Options</h3>
+            <div class="price-card">
+                <h4>Essential Bali</h4>
+                <div class="price">$1,499 per person</div>
+                <ul>
+                    <li>6 nights in 3-star hotel</li>
+                    <li>Breakfast included</li>
+                    <li>Airport transfers</li>
+                    <li>Half-day Ubud tour</li>
+                    <li>Tanah Lot sunset tour</li>
+                </ul>
+                <a href="index.html#contact" class="btn">Book Now</a>
+            </div>
+            <div class="price-card">
+                <h4>Luxury Bali Retreat</h4>
+                <div class="price">$2,999 per person</div>
+                <ul>
+                    <li>7 nights in 5-star resort</li>
+                    <li>Daily breakfast & 3 dinners</li>
+                    <li>Private villa with pool</li>
+                    <li>Full-day Nusa Penida tour</li>
+                    <li>Daily spa treatments</li>
+                    <li>Private driver for 3 days</li>
+                </ul>
+                <a href="index.html#contact" class="btn">Book Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Explore the World</h3>
+                <p>Creating unforgettable travel experiences since 2010. Let us help you discover your next adventure.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="index.html#about">About Us</a>
+                <a href="index.html#destinations">Destinations</a>
+                <a href="index.html#gallery">Gallery</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Travel Street, New York, NY 10001</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@exploretheworld.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Explore the World. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

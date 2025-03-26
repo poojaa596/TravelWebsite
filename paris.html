@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paris, France | Explore the World</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 0;
+            text-align: center;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        .navbar a:hover {
+            color: #1abc9c;
+        }
+        .destination-hero {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .destination-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .destination-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .destination-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        .destination-text h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .destination-text p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .destination-highlights {
+            flex: 1;
+            min-width: 300px;
+        }
+        .destination-highlights h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .highlight-icon {
+            font-size: 24px;
+            color: #1abc9c;
+            margin-right: 15px;
+        }
+        .highlight-text h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .highlight-text p {
+            font-size: 14px;
+            color: #777;
+            margin: 0;
+        }
+        .map-container {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .itinerary {
+            margin-bottom: 40px;
+        }
+        .itinerary h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: #1abc9c;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid #1abc9c;
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        .left {
+            left: 0;
+        }
+        .right {
+            left: 50%;
+        }
+        .left::after {
+            right: -10px;
+        }
+        .right::after {
+            left: -10px;
+        }
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .timeline-content h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #1abc9c;
+        }
+        .timeline-content p {
+            font-size: 14px;
+            color: #555;
+        }
+        .price-section {
+            background-color: #f4f4f4;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+        .price-section h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .price-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .price-card h4 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .price-card .price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1abc9c;
+            margin-bottom: 15px;
+        }
+        .price-card ul {
+            list-style-type: none;
+            margin-bottom: 15px;
+        }
+        .price-card ul li {
+            padding: 5px 0;
+            color: #555;
+        }
+        .price-card ul li::before {
+            content: "✓";
+            color: #1abc9c;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .price-card .btn {
+            display: inline-block;
+            background: #1abc9c;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .price-card .btn:hover {
+            background: #16a085;
+            transform: scale(1.05);
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            color: #1abc9c;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .back-btn:hover {
+            color: #16a085;
+            transform: translateX(-5px);
+        }
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 30px;
+            text-align: left;
+        }
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #1abc9c;
+        }
+        .footer-col p, .footer-col a {
+            color: #ecf0f1;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .footer-col a:hover {
+            color: #1abc9c;
+            transform: translateX(5px);
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .social-links a {
+            color: white;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+        .social-links a:hover {
+            color: #1abc9c;
+            transform: translateY(-5px);
+        }
+        .copyright {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #34495e;
+            width: 100%;
+        }
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-item::after {
+                left: 21px;
+            }
+            .left::after, .right::after {
+                left: 21px;
+            }
+            .right {
+                left: 0%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Navigation -->
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#destinations">Destinations</a>
+        <a href="index.html#gallery">Gallery</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+    </div>
+
+    <!-- Paris Destination Page -->
+    <div class="destination-hero" style="background-image: url('https://images.unsplash.com/photo-1505761671935-60b3a7427bad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')">
+        <div class="content">
+            <h1>Paris, France</h1>
+            <p>The City of Light and Love</p>
+        </div>
+    </div>
+    
+    <div class="destination-content">
+        <a href="index.html" class="back-btn">&larr; Back to Destinations</a>
+        
+        <div class="destination-info">
+            <div class="destination-text">
+                <h2>Discover Paris</h2>
+                <p>Paris, France's capital, is a major European city and a global center for art, fashion, gastronomy and culture. Its 19th-century cityscape is crisscrossed by wide boulevards and the River Seine. Beyond such landmarks as the Eiffel Tower and the 12th-century, Gothic Notre-Dame cathedral, the city is known for its cafe culture and designer boutiques along the Rue du Faubourg Saint-Honoré.</p>
+                <p>The city has the reputation of being the most beautiful and romantic of all cities, brimming with historic associations and remaining vastly influential in the realms of culture, art, fashion, food and design. Dubbed the City of Light (la Ville Lumière) for its leading role during the Age of Enlightenment, Paris today remains one of the world's leading centers for education, business, fashion, entertainment, art and science.</p>
+            </div>
+            
+            <div class="destination-highlights">
+                <h3>Highlights</h3>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-landmark"></i></div>
+                    <div class="highlight-text">
+                        <h4>Eiffel Tower</h4>
+                        <p>Iconic iron tower offering city views</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-university"></i></div>
+                    <div class="highlight-text">
+                        <h4>Louvre Museum</h4>
+                        <p>World's largest art museum</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-church"></i></div>
+                    <div class="highlight-text">
+                        <h4>Notre-Dame Cathedral</h4>
+                        <p>Gothic masterpiece on Île de la Cité</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-palette"></i></div>
+                    <div class="highlight-text">
+                        <h4>Montmartre</h4>
+                        <p>Historic artists' district with Sacré-Cœur</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d83998.75769393476!2d2.277020643066031!3d48.85895068142842!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e1f06e2b70f%3A0x40b82c3688c9460!2sParis%2C%20France!5e0!3m2!1sen!2sus!4v1623251234567!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        
+        <div class="itinerary">
+            <h3>Suggested 5-Day Itinerary</h3>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>Day 1: Arrival & Eiffel Tower</h4>
+                        <p>Arrive in Paris, check into your hotel. Evening visit to the Eiffel Tower with dinner at 58 Tour Eiffel restaurant.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4>Day 2: Louvre & Seine Cruise</h4>
+                        <p>Morning at the Louvre Museum. Afternoon shopping in Le Marais. Evening Seine River cruise.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>Day 3: Notre-Dame & Latin Quarter</h4>
+                        <p>Visit Notre-Dame Cathedral. Explore the Latin Quarter and Sorbonne University. Evening in Saint-Germain-des-Prés.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4>Day 4: Versailles Day Trip</h4>
+                        <p>Full day excursion to the Palace of Versailles with its magnificent gardens.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>Day 5: Montmartre & Departure</h4>
+                        <p>Morning in Montmartre visiting Sacré-Cœur and artists' square. Afternoon free before departure.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="price-section">
+            <h3>Package Options</h3>
+            <div class="price-card">
+                <h4>Essential Paris</h4>
+                <div class="price">$1,299 per person</div>
+                <ul>
+                    <li>4 nights in 3-star hotel</li>
+                    <li>Breakfast included</li>
+                    <li>Eiffel Tower entrance</li>
+                    <li>Seine River cruise</li>
+                    <li>Airport transfers</li>
+                </ul>
+                <a href="index.html#contact" class="btn">Book Now</a>
+            </div>
+            <div class="price-card">
+                <h4>Luxury Paris Experience</h4>
+                <div class="price">$2,499 per person</div>
+                <ul>
+                    <li>5 nights in 5-star hotel</li>
+                    <li>Daily breakfast & 3 dinners</li>
+                    <li>VIP access to all attractions</li>
+                    <li>Private guided tours</li>
+                    <li>Limo airport transfers</li>
+                    <li>Versailles day trip</li>
+                </ul>
+                <a href="index.html#contact" class="btn">Book Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Explore the World</h3>
+                <p>Creating unforgettable travel experiences since 2010. Let us help you discover your next adventure.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="index.html#about">About Us</a>
+                <a href="index.html#destinations">Destinations</a>
+                <a href="index.html#gallery">Gallery</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Travel Street, New York, NY 10001</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@exploretheworld.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Explore the World. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

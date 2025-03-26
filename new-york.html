@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New York, USA | Explore the World</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 0;
+            text-align: center;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        .navbar a:hover {
+            color: #1abc9c;
+        }
+        .destination-hero {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .destination-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .destination-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .destination-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        .destination-text h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .destination-text p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .destination-highlights {
+            flex: 1;
+            min-width: 300px;
+        }
+        .destination-highlights h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .highlight-icon {
+            font-size: 24px;
+            color: #1abc9c;
+            margin-right: 15px;
+        }
+        .highlight-text h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .highlight-text p {
+            font-size: 14px;
+            color: #777;
+            margin: 0;
+        }
+        .map-container {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .itinerary {
+            margin-bottom: 40px;
+        }
+        .itinerary h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: #1abc9c;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid #1abc9c;
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        .left {
+            left: 0;
+        }
+        .right {
+            left: 50%;
+        }
+        .left::after {
+            right: -10px;
+        }
+        .right::after {
+            left: -10px;
+        }
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .timeline-content h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #1abc9c;
+        }
+        .timeline-content p {
+            font-size: 14px;
+            color: #555;
+        }
+        .price-section {
+            background-color: #f4f4f4;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+        .price-section h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .price-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .price-card h4 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .price-card .price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1abc9c;
+            margin-bottom: 15px;
+        }
+        .price-card ul {
+            list-style-type: none;
+            margin-bottom: 15px;
+        }
+        .price-card ul li {
+            padding: 5px 0;
+            color: #555;
+        }
+        .price-card ul li::before {
+            content: "✓";
+            color: #1abc9c;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .price-card .btn {
+            display: inline-block;
+            background: #1abc9c;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .price-card .btn:hover {
+            background: #16a085;
+            transform: scale(1.05);
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            color: #1abc9c;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .back-btn:hover {
+            color: #16a085;
+            transform: translateX(-5px);
+        }
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 30px;
+            text-align: left;
+        }
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #1abc9c;
+        }
+        .footer-col p, .footer-col a {
+            color: #ecf0f1;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .footer-col a:hover {
+            color: #1abc9c;
+            transform: translateX(5px);
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .social-links a {
+            color: white;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+        .social-links a:hover {
+            color: #1abc9c;
+            transform: translateY(-5px);
+        }
+        .copyright {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #34495e;
+            width: 100%;
+        }
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-item::after {
+                left: 21px;
+            }
+            .left::after, .right::after {
+                left: 21px;
+            }
+            .right {
+                left: 0%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Navigation -->
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#destinations">Destinations</a>
+        <a href="index.html#gallery">Gallery</a>
+        <a href="index.html#testimonials">Testimonials</a>
+        <a href="index.html#contact">Contact</a>
+    </div>
+
+    <!-- New York Destination Page -->
+    <div class="destination-hero" style="background-image: url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')">
+        <div class="content">
+            <h1>New York, USA</h1>
+            <p>The City That Never Sleeps</p>
+        </div>
+    </div>
+    
+    <div class="destination-content">
+        <a href="index.html" class="back-btn">&larr; Back to Destinations</a>
+        
+        <div class="destination-info">
+            <div class="destination-text">
+                <h2>Discover New York</h2>
+                <p>New York City comprises 5 boroughs sitting where the Hudson River meets the Atlantic Ocean. At its core is Manhattan, a densely populated borough that's among the world's major commercial, financial and cultural centers. Its iconic sites include skyscrapers such as the Empire State Building and sprawling Central Park. Broadway theater is staged in neon-lit Times Square.</p>
+                <p>The city is a global hub of business and commerce, as a center for banking and finance, retailing, world trade, transportation, tourism, real estate, new media, traditional media, advertising, legal services, accountancy, insurance, theater, fashion, and the arts in the United States. NYC is home to the headquarters of the United Nations, and has been described as the cultural, financial, and media capital of the world.</p>
+            </div>
+            
+            <div class="destination-highlights">
+                <h3>Highlights</h3>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-building"></i></div>
+                    <div class="highlight-text">
+                        <h4>Empire State Building</h4>
+                        <p>Iconic Art Deco skyscraper with observatories</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-tree"></i></div>
+                    <div class="highlight-text">
+                        <h4>Central Park</h4>
+                        <p>Massive green space with zoo and attractions</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-monument"></i></div>
+                    <div class="highlight-text">
+                        <h4>Statue of Liberty</h4>
+                        <p>Colossal neoclassical sculpture on Liberty Island</p>
+                    </div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon"><i class="fas fa-theater-masks"></i></div>
+                    <div class="highlight-text">
+                        <h4>Broadway</h4>
+                        <p>World-famous theater district</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387193.3059445135!2d-74.25986613799748!3d40.69714941774136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sus!4v1623251434567!5m2!1sen!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        
+        <div class="itinerary">
+            <h3>Suggested 5-Day Itinerary</h3>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>Day 1: Arrival & Times Square</h4>
+                        <p>Arrive in NYC, check into hotel. Evening exploring Times Square and Broadway theaters.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4>Day 2: Statue of Liberty & Wall Street</h4>
+                        <p>Morning ferry to Statue of Liberty and Ellis Island. Afternoon in Financial District and 9/11 Memorial.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>Day 3: Central Park & Museums</h4>
+                        <p>Morning in Central Park. Afternoon at Metropolitan Museum of Art or Museum of Natural History.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4>Day 4: Empire State & Shopping</h4>
+                        <p>Morning at Empire State Building. Afternoon shopping in SoHo or Fifth Avenue.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>Day 5: Brooklyn & Departure</h4>
+                        <p>Morning walk across Brooklyn Bridge. Explore DUMBO before departure.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="price-section">
+            <h3>Package Options</h3>
+            <div class="price-card">
+                <h4>Essential New York</h4>
+                <div class="price">$899 per person</div>
+                <ul>
+                    <li>4 nights in 3-star hotel</li>
+                    <li>Breakfast included</li>
+                    <li>Empire State Building ticket</li>
+                    <li>Statue of Liberty ferry</li>
+                    <li>Airport transfers</li>
+                </ul>
+                <a href="index.html#contact" class="btn">Book Now</a>
+            </div>
+            <div class="price-card">
+                <h4>Premium NYC Experience</h4>
+                <div class="price">$1,899 per person</div>
+                <ul>
+                    <li>5 nights in 4-star hotel</li>
+                    <li>Daily breakfast</li>
+                    <li>Broadway show tickets</li>
+                    <li>Guided walking tours</li>
+                    <li>Met Museum admission</li>
+                    <li>Top of the Rock observation</li>
+                </ul>
+                <a href="index.html#contact" class="btn">Book Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Explore the World</h3>
+                <p>Creating unforgettable travel experiences since 2010. Let us help you discover your next adventure.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="index.html#about">About Us</a>
+                <a href="index.html#destinations">Destinations</a>
+                <a href="index.html#gallery">Gallery</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Travel Street, New York, NY 10001</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@exploretheworld.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Explore the World. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

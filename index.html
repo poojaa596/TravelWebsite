@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore the World</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: url('https://images.unsplash.com/photo-1503220317375-aaad61436b1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 0;
+            text-align: center;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        .navbar a:hover {
+            color: #1abc9c;
+        }
+        .content {
+            max-width: 800px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            margin-top: 60px;
+        }
+        .content h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .content p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            animation: fadeIn 3s ease-in-out;
+        }
+        .content button {
+            background: #1abc9c;
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .content button:hover {
+            background: #16a085;
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .about {
+            padding: 80px 20px;
+            text-align: center;
+            background: white;
+        }
+        .about h2 {
+            font-size: 40px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .about p {
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+        .destinations {
+            padding: 80px 20px;
+            text-align: center;
+            background: #f4f4f4;
+        }
+        .destinations h2 {
+            font-size: 40px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .destinations .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .destinations .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 320px;
+            transition: all 0.3s;
+            overflow: hidden;
+            position: relative;
+        }
+        .destinations .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        .destinations .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+        .destinations .card .card-content {
+            padding: 20px;
+        }
+        .destinations .card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .destinations .card p {
+            font-size: 16px;
+            color: #777;
+            margin-bottom: 15px;
+        }
+        .destinations .card .price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1abc9c;
+            margin-bottom: 15px;
+        }
+        .destinations .card .btn {
+            display: inline-block;
+            background: #1abc9c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .destinations .card .btn:hover {
+            background: #16a085;
+            transform: scale(1.05);
+        }
+        .gallery {
+            padding: 80px 20px;
+            text-align: center;
+            background: white;
+        }
+        .gallery h2 {
+            font-size: 40px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .slideshow-container {
+            position: relative;
+            max-width: 1000px;
+            margin: auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .slides {
+            display: none;
+            width: 100%;
+            animation: fade 1.5s;
+        }
+        @keyframes fade {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 30px;
+            transition: 0.3s ease;
+            border-radius: 5px;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .prev {
+            left: 20px;
+        }
+        .next {
+            right: 20px;
+        }
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .testimonials {
+            padding: 80px 20px;
+            text-align: center;
+            background: #f4f4f4;
+        }
+        .testimonials h2 {
+            font-size: 40px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .testimonial-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            transition: all 0.3s;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        .testimonial-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid #1abc9c;
+        }
+        .testimonial-card .rating {
+            color: #f1c40f;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .testimonial-card p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .testimonial-card .name {
+            font-weight: bold;
+            color: #333;
+        }
+        .blogs {
+            padding: 80px 20px;
+            text-align: center;
+            background: white;
+        }
+        .blogs h2 {
+            font-size: 40px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .blog-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .blog-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            transition: all 0.3s;
+            overflow: hidden;
+        }
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        .blog-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .blog-content {
+            padding: 20px;
+        }
+        .blog-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .blog-card .date {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .blog-card p {
+            font-size: 15px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .blog-card .read-more {
+            display: inline-block;
+            color: #1abc9c;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .blog-card .read-more:hover {
+            color: #16a085;
+            transform: translateX(5px);
+        }
+        .videos {
+            padding: 80px 20px;
+            text-align: center;
+            background: #f4f4f4;
+        }
+        .videos h2 {
+            font-size: 40px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .video-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .video-card {
+            width: 350px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        .video-card iframe {
+            width: 100%;
+            height: 200px;
+            border: none;
+        }
+        .video-content {
+            padding: 20px;
+            background: white;
+        }
+        .video-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .news {
+            padding: 80px 20px;
+            text-align: center;
+            background: white;
+        }
+        .news h2 {
+            font-size: 40px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .news-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            transition: all 0.3s;
+            overflow: hidden;
+        }
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .news-content {
+            padding: 20px;
+        }
+        .news-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .news-card .date {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .news-card p {
+            font-size: 15px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .news-card .read-more {
+            display: inline-block;
+            color: #1abc9c;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .news-card .read-more:hover {
+            color: #16a085;
+            transform: translateX(5px);
+        }
+        .statistics {
+            padding: 80px 20px;
+            text-align: center;
+            background: #f4f4f4;
+        }
+        .statistics h2 {
+            font-size: 40px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .chart-container {
+            width: 80%;
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .contact {
+            padding: 80px 20px;
+            text-align: center;
+            background: white;
+        }
+        .contact h2 {
+            font-size: 40px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #f4f4f4;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        .contact-form button {
+            background: #1abc9c;
+            border: none;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .contact-form button:hover {
+            background: #16a085;
+            transform: scale(1.02);
+        }
+        .newsletter {
+            margin-top: 40px;
+        }
+        .newsletter h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .newsletter-form input {
+            padding: 12px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .newsletter-form button {
+            padding: 12px 25px;
+            background: #1abc9c;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .newsletter-form button:hover {
+            background: #16a085;
+            transform: scale(1.05);
+        }
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 30px;
+            text-align: left;
+        }
+        .footer-col {
+            flex: 1;
+            min-width: 250px;
+        }
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #1abc9c;
+        }
+        .footer-col p, .footer-col a {
+            color: #ecf0f1;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .footer-col a:hover {
+            color: #1abc9c;
+            transform: translateX(5px);
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .social-links a {
+            color: white;
+            font-size: 20px;
+            transition: all 0.3s;
+        }
+        .social-links a:hover {
+            color: #1abc9c;
+            transform: translateY(-5px);
+        }
+        .copyright {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #34495e;
+            width: 100%;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .content h1 {
+                font-size: 40px;
+            }
+            .content p {
+                font-size: 16px;
+            }
+        }
+         /* New Styles for Awards Section */
+         .awards {
+            padding: 80px 20px;
+            text-align: center;
+            background: #f4f4f4;
+        }
+        .awards h2 {
+            font-size: 40px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .awards-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .award-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            transition: all 0.3s;
+        }
+        .award-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        .award-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+        .award-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #1abc9c;
+        }
+        .award-card p {
+            font-size: 16px;
+            color: #555;
+        }
+        
+        /* New Styles for Notice Board */
+        .notice-board {
+            padding: 80px 20px;
+            text-align: center;
+            background: white;
+        }
+        .notice-board h2 {
+            font-size: 40px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .offers-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .offer-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            transition: all 0.3s;
+            overflow: hidden;
+            border: 2px solid #1abc9c;
+        }
+        .offer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        .offer-card .tag {
+            background: #e74c3c;
+            color: white;
+            padding: 5px 15px;
+            font-weight: bold;
+            display: inline-block;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            border-radius: 5px;
+        }
+        .offer-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .offer-content {
+            padding: 20px;
+            position: relative;
+        }
+        .offer-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .offer-card .original-price {
+            text-decoration: line-through;
+            color: #777;
+            font-size: 18px;
+        }
+        .offer-card .discounted-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 5px 0;
+        }
+        .offer-card .offer-details {
+            font-size: 15px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .offer-card .book-btn {
+            display: inline-block;
+            background: #1abc9c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .offer-card .book-btn:hover {
+            background: #16a085;
+            transform: scale(1.05);
+        }
+        
+        /* Booking Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+            animation: modalopen 0.5s;
+        }
+        @keyframes modalopen {
+            from {opacity: 0; transform: translateY(-50px)}
+            to {opacity: 1; transform: translateY(0)}
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: #333;
+        }
+        .booking-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .booking-form h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .form-group label {
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input, .form-group select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .calculate-btn, .confirm-btn {
+            background: #1abc9c;
+            border: none;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .calculate-btn:hover, .confirm-btn:hover {
+            background: #16a085;
+        }
+        .price-display {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+            color: #1abc9c;
+            display: none;
+        }
+        
+        /* Confirmation Message Styles */
+        .confirmation-board {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2ecc71;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            animation: slideIn 0.5s;
+        }
+        @keyframes slideIn {
+            from {transform: translateX(100%); opacity: 0}
+            to {transform: translateX(0); opacity: 1}
+        }
+        .confirmation-board .close-confirmation {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Navigation -->
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#destinations">Destinations</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#blogs">Blogs</a>
+        <a href="#videos">Videos</a>
+        <a href="#news">News</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Home Section -->
+    <div id="home" class="hero">
+        <div class="content">
+            <h1>Explore the World</h1>
+            <p>Find your next adventure with us. Discover breathtaking destinations and create unforgettable memories.</p>
+            <button onclick="explore()">Explore Now</button>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div id="about" class="about">
+        <h2>About Our Travel Agency</h2>
+        <p>Welcome to Explore the World, your premier travel companion since 2010. We specialize in creating personalized travel experiences that go beyond the ordinary. Our team of expert travel consultants has visited over 50 countries, bringing you firsthand knowledge and insider tips.</p>
+        <p>We believe travel should be transformative, not just transactional. That's why we go the extra mile to craft journeys that resonate with your personal style, whether you're seeking adventure, relaxation, or cultural immersion.</p>
+    </div>
+
+    <!-- Destinations Section -->
+    <div id="destinations" class="destinations">
+        <h2>Popular Destinations</h2>
+        <div class="card-container">
+            <!-- Paris -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Paris">
+                <div class="card-content">
+                    <h3>Paris, France</h3>
+                    <p>The city of love, known for its art, fashion, and culture. Visit the Eiffel Tower, Louvre Museum, and enjoy exquisite French cuisine.</p>
+                    <div class="price">From $1,299</div>
+                    <a href="paris.html" class="btn">View Details</a>
+                </div>
+            </div>
+            
+            <!-- Tokyo -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Tokyo">
+                <div class="card-content">
+                    <h3>Tokyo, Japan</h3>
+                    <p>A vibrant city blending tradition and modernity. Explore ancient temples, futuristic districts, and world-class sushi.</p>
+                    <div class="price">From $1,799</div>
+                    <a href="tokyo.html" class="btn">View Details</a>
+                </div>
+            </div>
+            
+            <!-- New York -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="New York">
+                <div class="card-content">
+                    <h3>New York, USA</h3>
+                    <p>The city that never sleeps, full of energy and opportunities. See Broadway shows, Central Park, and the Statue of Liberty.</p>
+                    <div class="price">From $899</div>
+                    <a href="new-york.html" class="btn">View Details</a>
+                </div>
+            </div>
+            
+            <!-- Bali -->
+            <div class="card">
+                <img src="https://www.marieetravel.com/wp-content/uploads/2024/04/Indonesia-Bali-Ubud-traditional-temple.jpg" alt="Bali">
+                <div class="card-content">
+                    <h3>Bali, Indonesia</h3>
+                    <p>Tropical paradise with lush jungles, stunning beaches, and spiritual retreats. Perfect for relaxation and adventure.</p>
+                    <div class="price">From $1,499</div>
+                    <a href="bali.html" class="btn">View Details</a>
+                </div>
+            </div>
+            
+            <!-- Rome -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Rome">
+                <div class="card-content">
+                    <h3>Rome, Italy</h3>
+                    <p>The Eternal City with ancient ruins, Renaissance art, and delicious pasta. Walk through history at the Colosseum and Vatican.</p>
+                    <div class="price">From $1,199</div>
+                    <a href="rome.html" class="btn">View Details</a>
+                </div>
+            </div>
+            
+            <!-- Cape Town -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Cape Town">
+                <div class="card-content">
+                    <h3>Cape Town, South Africa</h3>
+                    <p>Stunning landscapes, wildlife safaris, and vibrant culture. Visit Table Mountain, penguin beaches, and Cape Winelands.</p>
+                    <div class="price">From $1,599</div>
+                    <a href="cape-town.html" class="btn">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="notice-board">
+        <h2>Today's Special Offers</h2>
+        <div class="offers-container">
+            <div class="offer-card">
+                <div class="tag">Limited Time!</div>
+                <img src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Paris Offer">
+                <div class="offer-content">
+                    <h3>Paris Romantic Getaway</h3>
+                    <div class="original-price">$1,499</div>
+                    <div class="discounted-price">$1,199</div>
+                    <p class="offer-details">5 days/4 nights with Eiffel Tower visit, Seine cruise, and breakfast included.</p>
+                    <a class="book-btn" onclick="openBookingModal('Paris Romantic Getaway', 1199)">Book Now</a>
+                </div>
+            </div>
+            <div class="offer-card">
+                <div class="tag">Last 5!</div>
+                <img src="https://www.marieetravel.com/wp-content/uploads/2024/04/Indonesia-Bali-Ubud-traditional-temple.jpg" alt="Bali Offer">
+                <div class="offer-content">
+                    <h3>Bali Tropical Escape</h3>
+                    <div class="original-price">$1,799</div>
+                    <div class="discounted-price">$1,399</div>
+                    <p class="offer-details">7 days/6 nights with private villa, spa treatment, and airport transfers.</p>
+                    <a class="book-btn" onclick="openBookingModal('Bali Tropical Escape', 1399)">Book Now</a>
+                </div>
+            </div>
+            <div class="offer-card">
+                <div class="tag">Weekend Special</div>
+                <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="New York Offer">
+                <div class="offer-content">
+                    <h3>New York City Break</h3>
+                    <div class="original-price">$999</div>
+                    <div class="discounted-price">$799</div>
+                    <p class="offer-details">4 days/3 nights with Empire State Building tickets and Broadway show.</p>
+                    <a class="book-btn" onclick="openBookingModal('New York City Break', 799)">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <div id="gallery" class="gallery">
+        <h2>Photo Gallery</h2>
+        <div class="slideshow-container">
+            <div class="slides fade">
+                <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/4b/59/86/caption.jpg?w=1400&h=1400&s=1" style="width:100%">
+            </div>
+            <div class="slides fade">
+                <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGFyaXN8ZW58MHx8MHx8fDA%3D" style="width:100%">
+            </div>
+            <div class="slides fade">
+                <img src="https://lp-cms-production.imgix.net/2021-04/shutterstockRF_1035503722.jpg?fit=crop&ar=1%3A1&w=1200&auto=format&q=75" style="width:100%">
+            </div>
+            <div class="slides fade">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYh590HZUJkWKBWYSEprkgVMllwMBuMznsRQ&s" style="width:100%">
+            </div>
+            <div class="slides fade">
+                <img src="https://www.planetware.com/photos-large/USNY/new-york-city-statue-of-liberty.jpg" style="width:100%">
+            </div>
+            <div class="slides fade">
+                <img src="https://media.istockphoto.com/id/1403617423/photo/young-woman-tourist-in-sun-hat-and-white-dress-standing-in-front-of-eiffel-tower-in-paris-at.jpg?s=612x612&w=0&k=20&c=5M4C_uB1F7HVhLG1Z82yn3uthqAU_arGvpJiNO88bhg=" style="width:100%">
+            </div>
+            <div class="slides fade">
+                <img src="https://www.visa.co.in/dam/VCOM/regional/ap/images/travel-with-visa/paris/marquee-travel-paris-800x450.jpg" style="width:100%">
+            </div>
+            <div class="slides fade">
+                <img src="https://media.timeout.com/images/105927885/750/562/image.jpg" style="width:100%">
+            </div>
+             <div class="slides fade">
+                <img src="https://static.vecteezy.com/system/resources/previews/027/828/167/large_2x/landmark-of-the-colosseum-rome-in-italy-at-night-with-galaxy-in-sky-ai-generative-photo.jpg" style="width:100%">
+            </div>
+            <div class="slides fade">
+                <img src="https://assets3.thrillist.com/v1/image/2680204/1200x630/flatten;crop_down;webp=auto;jpeg_quality=70" style="width:100%">
+            </div>
+            <div class="slides fade">
+                <img src="https://travel.usnews.com/dims4/USNEWS/43ac862/2147483647/resize/600x400%5E%3E/crop/600x400/quality/85/?url=https%3A%2F%2Ftravel.usnews.com%2Fimages%2Fascending_table_mountain_7yJwxDj.jpg" style="width:100%">
+            </div>
+            <div class="slides fade">
+                <img src="https://www.andbeyond.com/wp-content/uploads/sites/5/cape-town-city-tour1.jpg" style="width:100%">
+            </div>
+            <div class="slides fade">
+                <img src="https://viacation.com/wp-content/uploads/2024/10/7xm602974-1.jpg" style="width:100%">
+            </div>
+            <div class="slides fade">
+                <img src="https://img.freepik.com/free-photo/bali-pagoda-indonesia_1150-11021.jpg" style="width:100%">
+            </div>
+
+
+
+
+
+
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <div id="testimonials" class="testimonials">
+        <h2>What Our Travelers Say</h2>
+        <div class="testimonial-container">
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Jane Doe">
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>"The best travel experience ever! Everything was perfectly organized, and we got to see so many amazing places without any hassle."</p>
+                <div class="name">- Jane Doe, Paris Trip</div>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="John Smith">
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p>"Amazing places, well-organized trips. The guides were knowledgeable and friendly. Can't wait to book our next adventure!"</p>
+                <div class="name">- John Smith, Tokyo Trip</div>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Maria Garcia">
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>"Absolutely breathtaking experience in Bali. The team took care of every detail, allowing us to fully enjoy our vacation."</p>
+                <div class="name">- Maria Garcia, Bali Trip</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blogs Section -->
+    <div id="blogs" class="blogs">
+        <h2>Travel Blogs</h2>
+        <div class="blog-container">
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Hidden Gems">
+                <div class="blog-content">
+                    <h3>Hidden Gems of Europe</h3>
+                    <div class="date">June 15, 2025</div>
+                    <p>Discover the less-traveled paths through Europe's most enchanting hidden destinations that most tourists never see...</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1503917988258-f87a78e3c995?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Food Guide">
+                <div class="blog-content">
+                    <h3>Tokyo Food Guide</h3>
+                    <div class="date">May 22, 2025</div>
+                    <p>From sushi to ramen, explore the culinary wonders of Tokyo with our comprehensive guide to the city's best eats...</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </div>
+            <div class="blog-card">
+                <img src="https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Packing Tips">
+                <div class="blog-content">
+                    <h3>Ultimate Packing Guide</h3>
+                    <div class="date">April 10, 2025</div>
+                    <p>Learn how to pack like a pro with our ultimate guide to traveling light while still having everything you need...</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Videos Section -->
+    <div id="videos" class="videos">
+        <h2>Travel Videos</h2>
+        <div class="video-container">
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/GljTvdEDqJM?si=YLfmyRNVMnbgwLJj" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-content">
+                    <h3>Paris in 4K</h3>
+                </div>
+            </div>
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/IuTDuvYr7f0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-content">
+                    <h3>Tokyo Travel Guide</h3>
+                </div>
+            </div>
+            <div class="video-card">
+                <iframe src="https://www.youtube.com/embed/tf6bKQhxI2c?si=NDa1CI7hc4vwNDpv" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="video-content">
+                    <h3>Bali's Best Beaches</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="awards">
+        <h2>Our Awards & Recognitions</h2>
+        <div class="awards-container">
+            <div class="award-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/2583/2583344.png" alt="Best Tour Operator">
+                <h3>Best Tour Operator 2024</h3>
+                <p>Awarded by World Travel Awards for our exceptional service and customer satisfaction.</p>
+            </div>
+            <div class="award-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/2583/2583439.png" alt="Excellence in Tourism">
+                <h3>Excellence in Tourism</h3>
+                <p>Recognized by International Tourism Board for innovative travel experiences.</p>
+            </div>
+            <div class="award-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/2583/2583319.png" alt="Customer Choice">
+                <h3>Customer Choice Award</h3>
+                <p>Voted best travel agency by our customers for three consecutive years.</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- News Section -->
+    <div id="news" class="news">
+        <h2>Travel News</h2>
+        <div class="news-container">
+            <div class="news-card">
+                <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Travel Reopening">
+                <div class="news-content">
+                    <h3>France Reopens Major Tourist Attractions</h3>
+                    <div class="date">June 1, 2025</div>
+                    <p>After extensive renovations, France has reopened several major tourist attractions including the Eiffel Tower and Louvre...</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </div>
+            <div class="news-card">
+                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="New Flight Routes">
+                <div class="news-content">
+                    <h3>New Direct Flight Routes to Asia Announced</h3>
+                    <div class="date">May 18, 2025</div>
+                    <p>Several airlines have announced new direct routes to popular Asian destinations, making travel more convenient...</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </div>
+            <div class="news-card">
+                <img src="https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Sustainable Travel">
+                <div class="news-content">
+                    <h3>Sustainable Travel Initiatives Gain Momentum</h3>
+                    <div class="date">April 30, 2025</div>
+                    <p>More hotels and tour operators are implementing sustainable practices to reduce tourism's environmental impact...</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    
+
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <form class="booking-form" id="bookingForm">
+                <h3 id="modalTitle">Book Your Trip</h3>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Travel Date</label>
+                    <input type="date" id="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="travelers">Number of Travelers</label>
+                    <input type="number" id="travelers" min="1" value="1" required>
+                </div>
+                <button type="button" class="calculate-btn" onclick="calculatePrice()">Calculate Price</button>
+                <div id="priceDisplay" class="price-display"></div>
+                <button type="button" class="confirm-btn" id="confirmBtn" onclick="confirmBooking()" disabled>Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Confirmation Message -->
+    <div id="confirmationBoard" class="confirmation-board">
+        <span class="close-confirmation" onclick="closeConfirmation()">&times;</span>
+        <h3>Booking Confirmed!</h3>
+        <p>Thank you for your booking. You will soon receive a call from our team to finalize your trip details.</p>
+        <p>Stay tuned!</p>
+    </div>
+    <!-- Statistics Section -->
+    <div id="statistics" class="statistics">
+        <h2>Travel Trends</h2>
+        <div class="chart-container">
+            <canvas id="chart"></canvas>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-container">
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="text" placeholder="Subject">
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+            
+            <div class="newsletter">
+                <h3>Subscribe to Our Newsletter</h3>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Explore the World</h3>
+                <p>Creating unforgettable travel experiences since 2010. Let us help you discover your next adventure.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#destinations">Destinations</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> abc Street, Vellore</p>
+                <p><i class="fas fa-phone"></i> +91 1231231230</p>
+                <p><i class="fas fa-envelope"></i> info@exploretheworld.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9AM - 6PM</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Explore the World. All rights reserved.</p>
+        </div>
+    </div>
+    
+    
+
+  
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Slideshow functionality
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("slides");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1; }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 6000); // Change image every 5 seconds
+        }
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        // Chart initialization
+        const ctx = document.getElementById('chart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Europe', 'Asia', 'America', 'Africa', 'Oceania'],
+                datasets: [{
+                    label: 'Tourists (in millions)',
+                    data: [710, 650, 320, 180, 90],
+                    backgroundColor: [
+                        '#1abc9c',
+                        '#3498db',
+                        '#9b59b6',
+                        '#e74c3c',
+                        '#f1c40f'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Global Tourism Trends 2025'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Explore button function
+        function explore() {
+            alert("Let's start your adventure! 🚀");
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Make navbar sticky when scrolling
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(0, 0, 0, 0.9)';
+                navbar.style.padding = '10px 0';
+            } else {
+                navbar.style.background = 'rgba(0, 0, 0, 0.8)';
+                navbar.style.padding = '15px 0';
+            }
+        });
+        // New JavaScript for Booking System
+        let currentPackagePrice = 0;
+        let currentPackageName = "";
+        
+        function openBookingModal(packageName, packagePrice) {
+            currentPackageName = packageName;
+            currentPackagePrice = packagePrice;
+            document.getElementById('modalTitle').textContent = `Book ${packageName}`;
+            document.getElementById('bookingModal').style.display = 'block';
+            document.getElementById('priceDisplay').style.display = 'none';
+            document.getElementById('confirmBtn').disabled = true;
+            document.getElementById('bookingForm').reset();
+        }
+        
+        function closeModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+        }
+        
+        function calculatePrice() {
+            const travelers = parseInt(document.getElementById('travelers').value);
+            const totalPrice = currentPackagePrice * travelers;
+            document.getElementById('priceDisplay').textContent = `Total Price: $${totalPrice}`;
+            document.getElementById('priceDisplay').style.display = 'block';
+            document.getElementById('confirmBtn').disabled = false;
+        }
+        
+        function confirmBooking() {
+            closeModal();
+            showConfirmation();
+            // Here you would typically send the booking data to your server
+        }
+        
+        function showConfirmation() {
+            const confirmation = document.getElementById('confirmationBoard');
+            confirmation.style.display = 'block';
+            setTimeout(() => {
+                confirmation.style.display = 'none';
+            }, 10000); // Hide after 10 seconds
+        }
+        
+        function closeConfirmation() {
+            document.getElementById('confirmationBoard').style.display = 'none';
+        }
+        
+        // Close modal if clicked outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('bookingModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
